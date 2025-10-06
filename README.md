@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -120,7 +121,7 @@
 <body>
     <h1>Inorganic Compound Namer - Card Game Reference (Ionic & Covalent)</h1>
     <p>Enter a chemical formula (e.g., NaCl, H2SO4, NH42SO4 for (NH4)2SO4, CCl4) to get its name. This covers <strong>all possible valid ionic compounds and common inorganic covalent compounds</strong> formable from the card game's elements and ions (considering valences for neutrality). Formulas are generated from: Na, K, Mg, Ca, Al, Zn, Cu(I), Cu(II), Fe(II), Fe(III), O, H, Cl, C (for CO₃²⁻ or covalent like CO2/CCl4), N (for NO₃⁻ or covalent like NH3/NO2), F, S, P (for PO₄³⁻ or covalent like SO2/PCl3), OH⁻, NH₄⁺, PO₄³⁻, SO₄²⁻.</p>
-    <p><strong>Notes:</strong> Enter polyatomic multiples without parentheses (e.g., NH42SO4). Includes ~150 salts, oxides, acids, and covalent molecules (e.g., CCl4, CO2, SO2). Transition metals use Roman numerals. For reference, use the "Show All Compounds" button below. Covalent compounds are neutral molecules from non-metals (no charges). <strong>This PWA works offline!</strong></p>
+    <p><strong>Notes:</strong> Enter polyatomic multiples without parentheses (e.g., NH42SO4). Includes ~150 salts, oxides, acids, and covalent molecules (e.g., CCl4, CO2, SO2). Transition metals use Roman numerals. For reference, use the "Show All Compounds" button below. Covalent compounds are neutral molecules from non-metals (no charges). </p>
     
 <input type="text" id="formulaInput" placeholder="Enter formula, e.g., NaCl, CCl4, or NH42SO4" maxlength="50">
     <button onclick="nameCompound()">Name Compound</button>
