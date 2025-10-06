@@ -1,6 +1,95 @@
-
 <!DOCTYPE html>
 <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inorganic Compound Namer - Card Game Reference</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+            min-height: 20px;
+        }
+        .error {
+            color: #dc3545;
+            border-left-color: #dc3545;
+        }
+        .examples {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        #allCompounds {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 4px;
+            display: none;
+        }
+        #allCompounds h2 {
+            color: #333;
+        }
+        #allCompounds ul {
+            column-count: 2;
+            list-style-type: none;
+            padding: 0;
+        }
+        #allCompounds li {
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+        .toggle-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .toggle-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
 <body>
     <h1>Inorganic Compound Namer - Card Game Reference</h1>
     <p>Enter a chemical formula (e.g., NaCl, H2SO4, NH42SO4 for (NH4)2SO4) to get its name. This covers <strong>all possible valid ionic compounds and acids</strong> formable from the card game's elements and ions (considering valences for neutrality). Formulas are generated from the provided card list: Na, K, Mg, Ca, Al, Zn, Cu(I), Cu(II), Fe(II), Fe(III), O, H, Cl, C (for CO₃²⁻), N (for NO₃⁻), F, S, P (for PO₄³⁻), OH⁻, NH₄⁺, PO₄³⁻, SO₄²⁻.</p>
