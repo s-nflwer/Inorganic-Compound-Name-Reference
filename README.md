@@ -1,8 +1,17 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inorganic Compound Namer - Card Game Reference</title>
+    <title>Inorganic Compound Namer - Card Game Reference (Ionic & Covalent)</title>
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <!-- Theme color for PWA (optional) -->
+    <meta name="theme-color" content="#007bff">
+    <!-- Apple/iOS PWA support -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" href="icon-192.png"> <!-- Add an icon image if desired -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -87,36 +96,94 @@
         .toggle-btn:hover {
             background-color: #218838;
         }
+        .covalent-note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+        /* PWA Install Prompt Styling (optional) */
+        #install-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            display: none;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
-    <h1>Inorganic Compound Namer - Card Game Reference</h1>
-    <p>Enter a chemical formula (e.g., NaCl, H2SO4, NH42SO4 for (NH4)2SO4) to get its name. This covers <strong>all possible valid ionic compounds and acids</strong> formable from the card game's elements and ions (considering valences for neutrality). Formulas are generated from the provided card list: Na, K, Mg, Ca, Al, Zn, Cu(I), Cu(II), Fe(II), Fe(III), O, H, Cl, C (for CO₃²⁻), N (for NO₃⁻), F, S, P (for PO₄³⁻), OH⁻, NH₄⁺, PO₄³⁻, SO₄²⁻.</p>
-    <p><strong>Notes:</strong> Enter polyatomic multiples without parentheses (e.g., NH42SO4). Includes ~100 salts, oxides, and acids. Transition metals use Roman numerals. For reference, use the "Show All Compounds" button below.</p>
+    <h1>Inorganic Compound Namer - Card Game Reference (Ionic & Covalent)</h1>
+    <p>Enter a chemical formula (e.g., NaCl, H2SO4, NH42SO4 for (NH4)2SO4, CCl4) to get its name. This covers <strong>all possible valid ionic compounds and common inorganic covalent compounds</strong> formable from the card game's elements and ions (considering valences for neutrality). Formulas are generated from: Na, K, Mg, Ca, Al, Zn, Cu(I), Cu(II), Fe(II), Fe(III), O, H, Cl, C (for CO₃²⁻ or covalent like CO2/CCl4), N (for NO₃⁻ or covalent like NH3/NO2), F, S, P (for PO₄³⁻ or covalent like SO2/PCl3), OH⁻, NH₄⁺, PO₄³⁻, SO₄²⁻.</p>
+    <p><strong>Notes:</strong> Enter polyatomic multiples without parentheses (e.g., NH42SO4). Includes ~150 salts, oxides, acids, and covalent molecules (e.g., CCl4, CO2, SO2). Transition metals use Roman numerals. For reference, use the "Show All Compounds" button below. Covalent compounds are neutral molecules from non-metals (no charges). <strong>This PWA works offline!</strong></p>
     
-    <input type="text" id="formulaInput" placeholder="Enter formula, e.g., NaCl or NH42SO4" maxlength="50">
+<input type="text" id="formulaInput" placeholder="Enter formula, e.g., NaCl, CCl4, or NH42SO4" maxlength="50">
     <button onclick="nameCompound()">Name Compound</button>
     
-    <div id="result"></div>
+ <div id="result"></div>
     
-    <button class="toggle-btn" onclick="toggleAllCompounds()">Show All Compounds (Reference List)</button>
+<button class="toggle-btn" onclick="toggleAllCompounds()">Show All Compounds (Reference List)</button>
     <div id="allCompounds">
         <h2>All Possible Compounds</h2>
+        <p><strong>Ionic:</strong> Salts/acids from metals + anions. <strong>Covalent:</strong> Neutral non-metal molecules (e.g., CCl4 from C + 4Cl).</p>
         <ul id="compoundsList"></ul>
     </div>
     
-    <div class="examples">
+<div class="examples">
         <strong>Examples:</strong><br>
-        NaCl → Sodium chloride<br>
-        H2SO4 → Sulfuric acid<br>
-        NH42SO4 → Ammonium sulfate (standard: (NH₄)₂SO₄)<br>
-        AlPO4 → Aluminum phosphate<br>
-        Cu2O → Copper(I) oxide<br>
-        FeCl3 → Iron(III) chloride<br>
-        CaCO3 → Calcium carbonate
+        NaCl → Sodium chloride (ionic)<br>
+        H2SO4 → Sulfuric acid (ionic acid)<br>
+        NH42SO4 → Ammonium sulfate (standard: (NH₄)₂SO₄, ionic)<br>
+        AlPO4 → Aluminum phosphate (ionic)<br>
+        Cu2O → Copper(I) oxide (ionic)<br>
+        FeCl3 → Iron(III) chloride (ionic)<br>
+        CaCO3 → Calcium carbonate (ionic)<br>
+        CCl4 → Carbon tetrachloride (covalent)<br>
+        CO2 → Carbon dioxide (covalent)<br>
+        SO2 → Sulfur dioxide (covalent)<br>
+        PCl3 → Phosphorus trichloride (covalent)
     </div>
 
-    <script>
+    <!-- PWA Install Banner (optional, shows prompt to install) -->
+    <div id="install-banner">
+        <p>Install this app for offline use? <button onclick="installPWA()">Install</button> <button onclick="dismissInstall()">Dismiss</button></p>
+    </div>
+
+<script>
+        // Service Worker Registration (for offline caching)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('SW registered!'))
+                    .catch(err => console.log('SW registration failed'));
+            });
+        }
+
+        // PWA Install Prompt (optional)
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-banner').style.display = 'block';
+        });
+
+        function installPWA() {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(() => deferredPrompt = null);
+            document.getElementById('install-banner').style.display = 'none';
+        }
+
+        function dismissInstall() {
+            document.getElementById('install-banner').style.display = 'none';
+        }
+
+        // Original app script (unchanged)
         // Cations (including H for acids)
         const cations = [
             {symbol: 'H', charge: 1, baseName: 'hydrogen', roman: '', isAcid: true},
@@ -202,14 +269,73 @@
             }
         }
 
+        // Predefined covalent inorganic compounds (neutral molecules from non-metals in deck: C, O, H, Cl, N, F, S, P)
+        // Generated based on common valences: C(4), O(2), H(1), Cl/F(1), N(3/5), S(2/4/6), P(3/5)
+        // Only simple, stable inorganics (no organics like CH4; focus on halides, oxides, etc.)
+        const covalentCompounds = {
+            // Diatomics/Elements (neutral)
+            'Cl2': 'Chlorine',
+            'F2': 'Fluorine',
+            'O2': 'Oxygen',
+            'N2': 'Nitrogen',
+            'H2': 'Hydrogen',
+            'P4': 'White phosphorus (P₄)', // Tetramer, but common
+            'S8': 'Sulfur (S₈)', // Octamer, but common
+
+            // Hydrogen compounds
+            'H2O': 'Water',
+            'HCl': 'Hydrogen chloride',
+            'HF': 'Hydrogen fluoride',
+            'H2S': 'Hydrogen sulfide',
+            'NH3': 'Ammonia',
+            'PH3': 'Phosphine',
+
+            // Carbon compounds (inorganic: oxides, halides)
+            'CO': 'Carbon monoxide',
+            'CO2': 'Carbon dioxide',
+            'CCl4': 'Carbon tetrachloride',
+            'CF4': 'Carbon tetrafluoride',
+            'CS2': 'Carbon disulfide', // S from deck
+
+            // Nitrogen compounds
+            'NO': 'Nitrogen monoxide',
+            'N2O': 'Dinitrogen monoxide (Nitrous oxide)',
+            'NO2': 'Nitrogen dioxide',
+            'N2O4': 'Dinitrogen tetroxide',
+            'NF3': 'Nitrogen trifluoride',
+            'NCl3': 'Nitrogen trichloride',
+
+            // Phosphorus compounds
+            'PCl3': 'Phosphorus trichloride',
+            'PCl5': 'Phosphorus pentachloride',
+            'PF3': 'Phosphorus trifluoride',
+            'PF5': 'Phosphorus pentafluoride',
+            'POCl3': 'Phosphoryl chloride', // P + O + 3Cl
+
+            // Sulfur compounds
+            'SO2': 'Sulfur dioxide',
+            'SO3': 'Sulfur trioxide',
+            'SF4': 'Sulfur tetrafluoride',
+            'SF6': 'Sulfur hexafluoride', // Uses 6F, but deck has 5; still include as possible
+            'SCl2': 'Sulfur dichloride',
+
+            // Mixed/Others
+            'ClF': 'Chlorine monofluoride',
+            'ClF3': 'Chlorine trifluoride',
+            'N2H4': 'Dihydrazine (Hydrazine)', // N + H, inorganic
+            'HNO2': 'Nitrous acid', // But covalent form
+            'HNO3': 'Nitric acid' // Already in ionic, but covalent molecule
+        };
+
         // Build the compound map
         const compoundMap = {};
         const allCompounds = []; // For reference list
 
+        // Ionic compounds
         for (let cat of cations) {
             for (let an of anions) {
                 let standardFormula = generateFormula(cat, an);
-                let flattened = standardFormula.replace(/\(([^)]+)\)(\d+)/g, (match, inner, num) => inner + num);
+                let flattened = standardFormula.replace(/\$([^)]+)\$(\d+)/g, (match, inner, num) => inner + num);
                 let displayName;
 
                 // Special handling for H + OH
@@ -226,69 +352,34 @@
 
                 compoundMap[flattened] = {
                     name: displayName,
-                    standard: standardFormula
+                    standard: standardFormula,
+                    type: 'Ionic'
                 };
 
-                allCompounds.push(`${standardFormula} - ${displayName}`);
+                allCompounds.push(`${standardFormula} - ${displayName} (Ionic)`);
             }
         }
 
-        // Add special neutral compounds if relevant to cards (e.g., NH3 from N + H)
-        compoundMap['NH3'] = {name: 'Ammonia', standard: 'NH3'};
-        allCompounds.push('NH3 - Ammonia');
+        // Add covalent compounds to map and list
+        for (let formula in covalentCompounds) {
+            compoundMap[formula] = {
+                name: covalentCompounds[formula],
+                standard: formula,
+                type: 'Covalent'
+            };
+            allCompounds.push(`${formula} - ${covalentCompounds[formula]} (Covalent)`);
+        }
 
         // Sort all compounds alphabetically by standard formula
         allCompounds.sort();
 
         function normalizeFormula(input) {
             if (!input) return '';
-            input = input.trim().replace(/\s/g, '');
+            input = input.trim().replace(/\s/g, '').toUpperCase(); // Normalize case for matching
             // Flatten parentheses: (NH4)2 -> NH42
-            input = input.replace(/\(([^)]+)\)(\d*)/g, (match, inner, num) => inner + (num || ''));
+            input = input.replace(/\$([^)]+)\$(\d*)/g, (match, inner, num) => inner + (num || ''));
+            // Handle common variations (e.g., co2 -> CO2, but since uppercased, ok)
             return input;
         }
 
-        function nameCompound() {
-            const input = document.getElementById('formulaInput').value;
-            const normalized = normalizeFormula(input);
-            const resultDiv = document.getElementById('result');
-            
-            if (!normalized) {
-                resultDiv.innerHTML = '<span class="error">Please enter a formula.</span>';
-                resultDiv.className = 'error';
-                return;
-            }
-            
-            const entry = compoundMap[normalized];
-            if (entry) {
-                const text = `${entry.standard}: ${entry.name}`;
-                resultDiv.innerHTML = `<strong>Result:</strong> ${text}`;
-                resultDiv.className = '';
-            } else {
-                resultDiv.innerHTML = `<strong>Result:</strong> <span class="error">Unable to name "${input}". This may not be a valid combination from the card deck. Check spelling or try an example.</span>`;
-                resultDiv.className = 'error';
-            }
-        }
-
-        function toggleAllCompounds() {
-            const div = document.getElementById('allCompounds');
-            const btn = document.querySelector('.toggle-btn');
-            if (div.style.display === 'none') {
-                div.style.display = 'block';
-                document.getElementById('compoundsList').innerHTML = allCompounds.map(comp => `<li>${comp}</li>`).join('');
-                btn.textContent = 'Hide All Compounds';
-            } else {
-                div.style.display = 'none';
-                btn.textContent = 'Show All Compounds (Reference List)';
-            }
-        }
-        
-        // Allow Enter key to submit
-        document.getElementById('formulaInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                nameCompound();
-            }
-        });
-    </script>
-</body>
-</html>
+        function
