@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inorganic Compounds Nomenclature</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Inorganic Compounds Nomenclature</h1>
+    <p>Enter a chemical formula (e.g., Na2O, Mg(OH)2, (NH4)2SO4) to get its name. This website works offline.</p>
+    <input type="text" id="formula" placeholder="Enter chemical formula">
+    <button onclick="getName()">Get Name</button>
+    <p id="result"></p>
+
+    <script>
+        const compounds = {
+            "Na2O": "Sodium oxide",
+            "K2O": "Potassium oxide",
+            "MgO": "Magnesium oxide",
+            "CaO": "Calcium oxide",
+            "Al2O3": "Aluminum oxide",
+            "ZnO": "Zinc oxide",
+            "Cu2O": "Copper(I) oxide",
+            "CuO": "Copper(II) oxide",
+            "FeO": "Iron(II) oxide",
+            "Fe2O3": "Iron(III) oxide",
+            "H2O": "Water/Hydrogen oxide",
+            "CO": "Carbon monoxide",
+            "CO2": "Carbon dioxide",
+            "N2O3": "Dinitrogen trioxide",
+            "P2O3": "Diphosphorus trioxide",
+            "P2O5": "Diphosphorus pentoxide",
+            "SO2": "Sulfur dioxide",
+            "SO3": "Sulfur trioxide",
+            "NaOH": "Sodium hydroxide",
+            "KOH": "Potassium hydroxide",
+            "Mg(OH)2": "Magnesium hydroxide",
+            "Ca(OH)2": "Calcium hydroxide",
+            "Al(OH)3": "Aluminum hydroxide",
+            "Zn(OH)2": "Zinc hydroxide",
+            "Cu(OH)": "Copper(I) hydroxide",
+            "Cu(OH)2": "Copper(II) hydroxide",
+            "Fe(OH)2": "Iron(II) hydroxide",
+            "Fe(OH)3": "Iron(III) hydroxide",
+            "NaCl": "Sodium chloride",
+            "KCl": "Potassium chloride",
+            "MgCl2": "Magnesium chloride",
+            "CaCl2": "Calcium chloride",
+            "AlCl3": "Aluminum chloride",
+            "ZnCl2": "Zinc chloride",
+            "CuCl": "Copper(I) chloride",
+            "CuCl2": "Copper(II) chloride",
+            "FeCl2": "Iron(II) chloride",
+            "FeCl3": "Iron(III) chloride",
+            "NH4Cl": "Ammonium chloride",
+            "HCl": "Hydrogen chloride/Hydrochloric acid",
+            "NaF": "Sodium fluoride",
+            "KF": "Potassium fluoride",
+            "MgF2": "Magnesium fluoride",
+            "CaF2": "Calcium fluoride",
+            "AlF3": "Aluminum fluoride",
+            "ZnF2": "Zinc fluoride",
+            "CuF": "Copper(I) fluoride",
+            "CuF2": "Copper(II) fluoride",
+            "FeF2": "Iron(II) fluoride",
+            "FeF3": "Iron(III) fluoride",
+            "NH4F": "Ammonium fluoride",
+            "HF": "Hydrogen fluoride/Hydrofluoric acid",
+            "Na2S": "Sodium sulfide",
+            "K2S": "Potassium sulfide",
+            "MgS": "Magnesium sulfide",
+            "CaS": "Calcium sulfide",
+            "Al2S3": "Aluminum sulfide",
+            "ZnS": "Zinc sulfide",
+            "Cu2S": "Copper(I) sulfide",
+            "CuS": "Copper(II) sulfide",
+            "FeS": "Iron(II) sulfide",
+            "Fe2S3": "Iron(III) sulfide",
+            "(NH4)2S": "Ammonium sulfide",
+            "H2S": "Hydrogen sulfide",
+            "Na2SO4": "Sodium sulfate",
+            "K2SO4": "Potassium sulfate",
+            "MgSO4": "Magnesium sulfate",
+            "CaSO4": "Calcium sulfate",
+            "Al2(SO4)3": "Aluminum sulfate",
+            "ZnSO4": "Zinc sulfate",
+            "Cu2SO4": "Copper(I) sulfate",
+            "CuSO4": "Copper(II) sulfate",
+            "FeSO4": "Iron(II) sulfate",
+            "Fe2(SO4)3": "Iron(III) sulfate",
+            "(NH4)2SO4": "Ammonium sulfate",
+            "H2SO4": "Sulfuric acid",
+            "Na3PO4": "Sodium phosphate",
+            "K3PO4": "Potassium phosphate",
+            "Mg3(PO4)2": "Magnesium phosphate",
+            "Ca3(PO4)2": "Calcium phosphate",
+            "AlPO4": "Aluminum phosphate",
+            "Zn3(PO4)2": "Zinc phosphate",
+            "Cu3PO4": "Copper(I) phosphate",
+            "Cu3(PO4)2": "Copper(II) phosphate",
+            "Fe3(PO4)2": "Iron(II) phosphate",
+            "FePO4": "Iron(III) phosphate",
+            "(NH4)3PO4": "Ammonium phosphate",
+            "H3PO4": "Phosphoric acid",
+            "Na3N": "Sodium nitride",
+            "K3N": "Potassium nitride",
+            "Mg3N2": "Magnesium nitride",
+            "Ca3N2": "Calcium nitride",
+            "AlN": "Aluminum nitride",
+            "Zn3N2": "Zinc nitride",
+            "Cu3N": "Copper(I) nitride",
+            "Cu3N2": "Copper(II) nitride",
+            "Fe3N2": "Iron(II) nitride",
+            "FeN": "Iron(III) nitride",
+            "NH3": "Ammonia/Nitrogen hydride",
+            "Na3P": "Sodium phosphide",
+            "K3P": "Potassium phosphide",
+            "Mg3P2": "Magnesium phosphide",
+            "Ca3P2": "Calcium phosphide",
+            "AlP": "Aluminum phosphide",
+            "Zn3P2": "Zinc phosphide",
+            "Cu3P": "Copper(I) phosphide",
+            "Cu3P2": "Copper(II) phosphide",
+            "Fe3P2": "Iron(II) phosphide",
+            "FeP": "Iron(III) phosphide",
+            "PH3": "Phosphine/Phosphorus hydride",
+            "NaH": "Sodium hydride",
+            "KH": "Potassium hydride",
+            "MgH2": "Magnesium hydride",
+            "CaH2": "Calcium hydride",
+            "AlH3": "Aluminum hydride",
+            "ZnH2": "Zinc hydride",
+            "CuH": "Copper(I) hydride",
+            "CuH2": "Copper(II) hydride",
+            "FeH2": "Iron(II) hydride",
+            "FeH3": "Iron(III) hydride",
+            "Na2CO3": "Sodium carbonate",
+            "K2CO3": "Potassium carbonate",
+            "MgCO3": "Magnesium carbonate",
+            "CaCO3": "Calcium carbonate",
+            "Al2(CO3)3": "Aluminum carbonate",
+            "ZnCO3": "Zinc carbonate",
+            "Cu2CO3": "Copper(I) carbonate",
+            "CuCO3": "Copper(II) carbonate",
+            "FeCO3": "Iron(II) carbonate",
+            "Fe2(CO3)3": "Iron(III) carbonate",
+            "(NH4)2CO3": "Ammonium carbonate",
+            "Na4C": "Sodium carbide",
+            "K4C": "Potassium carbide",
+            "Mg2C": "Magnesium carbide",
+            "Ca2C": "Calcium carbide (CaC2)",
+            "Al4C3": "Aluminum carbide",
+            "ZnC": "Zinc carbide",
+            "Cu4C": "Copper(I) carbide",
+            "CuC": "Copper(II) carbide",
+            "Fe2C": "Iron(II) carbide (Cementite - Fe3C)",
+            "CH4": "Methane (Carbon hydride)",
+            "(NH4)2O": "Ammonium oxide",
+            "NH4OH": "Ammonium hydroxide"
+        };
+
+        function getName() {
+            const formula = document.getElementById('formula').value.trim();
+            const name = compounds[formula];
+            if (name) {
+                document.getElementById('result').innerText = `The name is: ${name}`;
+            } else {
+                document.getElementById('result').innerText = "Compound not found. Please check the formula and ensure it matches the list (e.g., use parentheses for complex ions).";
+            }
+        }
+    </script>
+</body>
+</html>
