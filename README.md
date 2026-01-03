@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inorganic Compounds Nomenclature</title>
+    <title>Periodicards Compound List Reference</title>
     <link rel="manifest" href="manifest.json">  <!-- Link to the manifest for PWA -->
     <style>
         body {
