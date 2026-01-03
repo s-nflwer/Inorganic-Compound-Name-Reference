@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inorganic Compounds Nomenclature</title>
+    <title>Periodicards Compound List Reference</title>
     <link rel="manifest" href="manifest.json">  <!-- Link to the manifest for PWA -->
     <style>
         body {
@@ -87,7 +87,6 @@
     </style>
 </head>
 <body>
-    <h1>Inorganic Compounds Nomenclature</h1>
     <p>Enter a chemical formula (e.g., Na2O, Mg(OH)2, (NH4)2SO4) to get its name. This app works offline once installed.</p>
     <input type="text" id="formula" placeholder="Enter chemical formula">
     <button onclick="getName()">Get Name</button>
