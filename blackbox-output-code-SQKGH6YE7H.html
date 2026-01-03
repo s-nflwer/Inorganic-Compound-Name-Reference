@@ -3,43 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Periodicards Compound List Reference</title>
+    <title>Inorganic Compounds Nomenclature</title>
     <link rel="manifest" href="manifest.json">  <!-- Link to the manifest for PWA -->
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', monospace;  /* Chemistry-themed monospace font */
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #001122;  /* Dark blue background */
+            color: #ffffff;  /* White text for contrast */
+            position: relative;
+            overflow: hidden;  /* Hide overflow for scattered symbols */
+        }
+        /* Scattered periodic element symbols */
+        body::before {
+            content: "H O Na Fe C N P S Cl";
+            position: absolute;
+            top: 10%;
+            left: 5%;
+            font-size: 24px;
+            color: rgba(0, 255, 0, 0.1);  /* Semi-transparent green for chemistry feel */
+            z-index: -1;
+            white-space: pre-wrap;
+            line-height: 2;
+        }
+        body::after {
+            content: "K Mg Ca Al Zn Cu";
+            position: absolute;
+            bottom: 10%;
+            right: 5%;
+            font-size: 20px;
+            color: rgba(0, 255, 0, 0.1);
+            z-index: -1;
+            white-space: pre-wrap;
+            line-height: 2;
         }
         h1 {
             text-align: center;
-            color: #333;
+            color: #00ff00;  /* Green for chemistry theme */
+            text-shadow: 2px 2px 4px #000;  /* Shadow for depth */
+        }
+        p {
+            text-align: center;
+            color: #cccccc;  /* Light gray for readability */
         }
         input {
             width: 100%;
             padding: 10px;
             font-size: 16px;
             margin-bottom: 10px;
+            border: 2px solid #00ff00;  /* Green border for theme */
+            border-radius: 10px;  /* Rounded for lab equipment feel */
+            background-color: #002244;  /* Darker blue */
+            color: #ffffff;
         }
         button {
             width: 100%;
             padding: 10px;
             font-size: 16px;
-            background-color: #4CAF50;
-            color: white;
+            background-color: #ADD8E6;  /* Light blue button */
+            color: #001122;  /* Dark blue text */
             border: none;
+            border-radius: 10px;
             cursor: pointer;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);  /* Shadow for 3D effect */
         }
         button:hover {
-            background-color: #45a049;
+            background-color: #87CEEB;  /* Slightly darker light blue on hover */
+            transform: scale(1.05);  /* Slight zoom for interactivity */
         }
         #result {
             margin-top: 20px;
             font-size: 18px;
-            color: #333;
+            color: #00ff00;  /* Green for results */
             text-align: center;
+            background-color: #002244;  /* Darker background for result box */
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #00ff00;
         }
     </style>
 </head>
@@ -162,7 +205,6 @@
             "NO2": "Nitrogen dioxide",
             "N2O5": "Dinitrogen pentoxide",
             "P2O5": "Diphosphorus pentoxide",
-            // Original additional compounds (kept for completeness)
             "CO": "Carbon monoxide",
             "CO2": "Carbon dioxide",
             "N2O3": "Dinitrogen trioxide",
