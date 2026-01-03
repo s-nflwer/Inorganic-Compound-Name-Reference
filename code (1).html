@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -87,7 +86,6 @@
     </style>
 </head>
 <body>
-    <h1>Inorganic Compounds Nomenclature</h1>
     <p>Enter a chemical formula (e.g., Na2O, Mg(OH)2, (NH4)2SO4) to get its name. This app works offline once installed.</p>
     <input type="text" id="formula" placeholder="Enter chemical formula">
     <button onclick="getName()">Get Name</button>
@@ -256,7 +254,7 @@
             const formula = document.getElementById('formula').value.trim();
             const name = compounds[formula];
             if (name) {
-                document.getElementById('result').innerText = `The name is: ${name}`;
+                document.getElementById('result').innerText = `${name}`;
             } else {
                 document.getElementById('result').innerText = "Compound not found. Please check the formula and ensure it matches the list (e.g., use parentheses for complex ions).";
             }
