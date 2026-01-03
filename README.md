@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -255,7 +254,7 @@
             const formula = document.getElementById('formula').value.trim();
             const name = compounds[formula];
             if (name) {
-                document.getElementById('result').innerText = `The name is: ${name}`;
+                document.getElementById('result').innerText = `${name}`;
             } else {
                 document.getElementById('result').innerText = "Compound not found. Please check the formula and ensure it matches the list (e.g., use parentheses for complex ions).";
             }
